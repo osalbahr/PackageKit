@@ -1,11 +1,8 @@
 #include <glib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
-	gint wait_status;
-	GError error;
-	GError *errorp = &error;
-
-	g_spawn_sync (NULL, argv + 1, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL,
-											NULL, NULL, &wait_status, &errorp);
+	g_spawn_async_with_fds (NULL, argv + 1, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL,
+											STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO, NULL);
 }
